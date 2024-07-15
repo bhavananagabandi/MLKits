@@ -6,16 +6,16 @@ const LinearRegression = require('./linear-regression');
 let { features, labels, testFeatures, testLabels } = loadSCV('./cars.csv', {
     shuffle: true,
     splitTest: 50,
-    dataColumns: ['horsepower'],
+    dataColumns: ['horsepower', 'weight', 'displacement'],
     labelColumns: ['mpg'] 
 });
 
 // features = tf.tensor(features)
 const regression = new LinearRegression(features, labels, {
-    learningRate: 0.0001,
+    learningRate: 0.1,
     iterations: 100
 })
 
 regression.train();
-
-console.log('UPdated M is: ', regression.m, 'Updated B is: ', regression.b);
+const r2 = regression.test(testFeatures, testLabels);
+console.log('R2 is', r2)
